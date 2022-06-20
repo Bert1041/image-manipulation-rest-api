@@ -18,7 +18,7 @@ class ImageManipulationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -117,9 +117,9 @@ class ImageManipulationController extends Controller
         // $data = $request->all();
         // $data['user_id'] = $request->user()->id;
         // return new AlbumResource(Album::create($data));
-        // if ($image->user_id != $request->user()->id) {
-        //     return abort(403, 'Unauthorized action.');
-        // }
+        if ($image->user_id != $request->user()->id) {
+            return abort(403, 'Unauthorized action.');
+        }
 
         return new ImageManipulationResource($image);
     }
